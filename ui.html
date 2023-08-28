@@ -1,0 +1,62 @@
+function init() {
+    let {
+        body
+    } = document;
+    let bool = true;
+    let inpBool = true;
+    document.addEventListener('keypress', ({
+        key
+    }) => {
+        if(key.toUpperCase() ==="C") {
+        const aimOn = document.getElementById('aimOn');
+        aimOn && (aimOn.checked ? aimOn.checked = false : aimOn.checked = true);
+    }
+        if (key === '\\') {
+            let b = document.createElement('div');
+            b.innerHTML = `
+        <div id='ui' style='width: 100%;
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    z-index: 777777;
+    top: 0;
+    justify-content: center;
+    display: flex;
+    padding: 1px;
+    gap: 20px;
+     align-items:center;
+    '><label style="    display: flex;
+    align-items: center;">Zoom 2x:
+        <input id="zoom" type="checkbox" /></label>\
+        <div style="display:flex; align-items:center;">
+        <p>AIM:&nbsp;</p>
+        <input id="aim" placeholder="name for aim"/>
+        <input id="aimOn" type="checkbox"/>
+        </div>
+        </div>
+        
+        `;
+
+            if (bool) {
+            
+                body.appendChild(b)
+                document.getElementById('zoom').removeEventListener("focus", function(e) {});
+                document.getElementById('aim').onclick = ({target}) =>{
+                    if(inpBool) {
+                        target.focus()
+                        inpBool = false;
+                    } else {
+                        target.blur()
+                        inpBool = true;
+                    }
+                }
+            } else {
+                const ui = document.getElementById('ui');
+                ui.remove();
+            }
+            (bool ? bool = false : bool = true)
+        }
+
+    })
+}
+
+init()
